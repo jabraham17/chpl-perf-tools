@@ -10,10 +10,12 @@ module PerfControl {
     select cmd {
       when Command.enable do return "enable";
       when Command.disable do return "disable";
+      otherwise do halt("unknown command");
     }
   }
   private inline proc getEnv(name: string): string {
     use OS.POSIX only getenv;
+    private use CTypes;
     var envname = name + "_" + here.hostname:string;
     var cstr = getenv(envname.c_str());
     return try! string.createBorrowingBuffer(cstr);
@@ -21,7 +23,7 @@ module PerfControl {
   private inline proc getFD(name: string): int {
     var env = getEnv(name);
     if env == "" then return -1;
-    return env:int;
+    return try! (env:int);
   }
 
   proc controlPerfCounters(cmd: Command, loc: locale = here) {
