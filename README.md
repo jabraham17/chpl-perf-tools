@@ -79,5 +79,4 @@ For best results when using `perf record`, it is recommended to compile your cod
 - `-g --no-cpp-lines` - includes debugging information in the binary, this makes it easier to map the hotspots back to the source code, but may slightly pmed optimizations
 - `--savec gen_code` - save the generated code to a directory, this helps `perf report` understand the debug information
 
-
 If you have having issues understanding the `perf` output with the default LLVM backend, you can try using the C backend. It is easier to inspect the generated C code and manually map it back to the Chapel source code.
