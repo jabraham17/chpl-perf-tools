@@ -6,6 +6,8 @@
 
 The two most common uses of `perf` are to collect event counts or to identify hotspots in the code. `perf stat` is used to collect event counts, while `perf record` is used to identify hotspots. `perf stat` is generally invoked with a set of events to count, which is then aggregated over the run of the application and written to a file. `perf record` is used to record the performance of the application, and then `perf report` is used to analyze the results.
 
+For more information, <https://perfwiki.github.io/main/> is a great resource.
+
 ## `perf` usage
 
 `perf` is typically used from the command line as
@@ -71,6 +73,10 @@ disableAllPerfCounters();
 ...
 
 ```
+
+## `perf report`
+
+After running `perf record`, use `perf report -i perf.data.filename` to analyze the results. This will show which functions in the program are taking the most time, and then you can drill down to see which lines in the function are the hotspots. When using this in Chapel, it can be difficult to map the function names reported in `perf` back to the Chapel source code without reading the generated code (especially generic code), so it is recommended to compile with the `--savec gen_code` flag.
 
 ## Best Practices
 
